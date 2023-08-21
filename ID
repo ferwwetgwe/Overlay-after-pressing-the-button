@@ -1,0 +1,113 @@
+/*
+黑钨重工出品 免费开源 请勿商用 侵权必究
+更多免费教程尽在QQ群 1群763625227 2群643763519
+*/
+	@@ -42,23 +42,23 @@ Menu, Tray, Add, 退出软件, 退出软件 ;添加新的右键菜单
+return
+
+使用教程:
+MsgBox, , 按键后覆盖, 黑钨重工出品 免费开源 请勿商用 侵权必究`n`n默认覆盖字母W和S`n如果需要覆盖其他键位`n根据需求自行更改源代码`n`n更多免费教程尽在QQ群 1群763625227 2群643763519
+return
+
+暂停运行:
+Critical, On
+if (running=0)
+{
+  running:=1
+  Hotkey, i, On
+  Hotkey, s, On
+  Menu, Tray, UnCheck, 暂停运行 ;右键菜单不打勾
+}
+else
+{
+  running:=0
+  Hotkey, i, Off
+  Hotkey, s, Off
+  Menu, Tray, Check, 暂停运行 ;右键菜单不打勾
+}
+Critical, Off
+	@@ -67,66 +67,66 @@ return
+退出软件:
+ExitApp
+
+~$w:: ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<改键改字母成你需要的按键 右
+if (热键开关s=0)
+{
+  return
+}
+右移动:
+热键开关s:=0
+if GetKeyState("s", "P")
+{
+  Send {s Up}
+}
+Critical On
+loop
+{
+  if !GetKeyState("i", "P")
+  {
+    if GetKeyState("s", "P")
+    {
+      反向:=0
+      break
+    }
+    else
+    {
+      热键开关s:=1
+      Critical Off
+      return
+    }
+  }
+  else if !GetKeyState("s", "P") and (反向=1)
+  {
+    反向:=0
+  }
+  else if GetKeyState("s", "P") and (反向!=1)
+  {
+    break
+  }
+}
+Send {s Down}
+反向:=1
+热键开关s:=1
+Critical Off
+goto 左移动
+
+~$s:: ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<改键改字母成你需要的按键 左
+if (热键开关d=0)
+{
+  return
+}
+左移动:
+热键开关i:=0
+if GetKeyState("i", "P")
+{
+  Send {i Up}
+}
+loop
+{
+  Critical On
+  if !GetKeyState("s", "P")
+  {
+    if GetKeyState("i", "P")
+    {
+      反向:=0
+      Critical Off
+	@@ -139,17 +139,17 @@ loop
+      return
+    }
+  }
+  else if !GetKeyState("i", "P") and (反向=1)
+  {
+    反向:=0
+  }
+  else if GetKeyState("i", "P") and (反向!=1)
+  {
+    break
+  }
+}
+Send {i Down}
+反向:=1
+热键开关i:=1
+Critical Off
+goto 右移动
